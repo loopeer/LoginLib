@@ -75,6 +75,20 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void sendSubmit2() {
+        LoginSubmit loginSubmit = (LoginSubmit) findViewById(R.id.login_fast_submit);
+        loginSubmit.setSubmitType(LoginLoader.SubmitType.LOGIN);
+        loginSubmit.setData(mEdEmail, mEdPassword);
+        loginSubmit.setSubmitListener(new LoginLoader.SubmitListener() {
+            @Override
+            public void onComplete(String... strings) {
+                for (String string : strings) {
+                    Log.d("LoginActivity", "submit onComplete: " + string);
+                }
+            }
+        });
+    }
+
     private void setDataByType(LoginLoader.SubmitType submitType, LoginSubmit loginSubmit) {
         if (loginSubmit == null) return;
         if (submitType == null) return;

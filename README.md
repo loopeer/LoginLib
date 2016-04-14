@@ -4,7 +4,7 @@
 
 ## 使用
 
-**验证码按钮**
+### 验证码按钮
 
 设置数据
 只需调用setUserEdit(EditText ed) 将输入框传入。
@@ -42,14 +42,54 @@ mCountDownView.setCaptchaListener(new LoginLoader.CaptchaListener() {
 ```
 
 
-**提交按钮**
-setDataBytype
-settype，爆出异常
+### 提交按钮
+
+**设置提交类型**
+setSubmitType(SubmitType submitType);
+如果不设置提交类型，则会报出**throw new IllegalArgumentException("SubmitType must not be null.")**;
+
+提交类型有以下几种类型，登录，注册，快速登录，密码忘记等。
+
+**设置内容**
+setData(EditText.. eds);
+可以传输随意的字段，然后会在SubmitListener 中的onComplete(String... strings) 返回相应的字符串，就可以直接提交API 了。
+
 
 ```java
-
+public enum SubmitType {
+    LOGIN, REGISTER, LOGIN_FAST, PASSWORD_FORGET, NORMAL
+}
 ```
 
+```xml
+<com.loopeer.android.loginlib.view.LoginSubmit
+    android:id="@+id/login_fast_submit"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeightSmall"
+    style="@style/Widget.AppCompat.Button.Small"
+    android:text="@string/fast_login"
+    />
+```
+
+```java
+LoginSubmit loginSubmit = (LoginSubmit) findViewById(R.id.login_fast_submit);
+loginSubmit.setSubmitType(LoginLoader.SubmitType.LOGIN);
+loginSubmit.setData(mEdEmail, mEdPassword);
+loginSubmit.setSubmitListener(new LoginLoader.SubmitListener() {
+    @Override
+    public void onComplete(String... strings) {
+        for (String string : strings) {
+            Log.d("LoginActivity", "submit onComplete: " + string);
+        }
+    }
+});
+```
+
+## 扩展
+自定义校验
+可以参考LoginSubmit，继承SubmitButton，重写checkInput(boolean isShowToast) 方法即可。
+
 ## 问题和Bug
-同一个页面不能设置多个。
-设置内容，必须哪找指定的顺序。
+注册按钮，必须按照用户名，验证码，密码先后顺序传入。
+
+目前**提交按钮**只有固定的的几种提交类型，不能随意传入，如果有其他输入框（修改密码），则不能通用，正在考虑解决。
