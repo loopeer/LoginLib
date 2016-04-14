@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:orientation="vertical">
+
+    <me.tikitoo.demo.loginlib.SubmitButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="?listPreferredItemHeightSmall"
+        android:gravity="center"
+        android:text="@string/action_sign_in"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@drawable/selector_captcha"
+        android:textColor="@color/selector_captcha_color"
+        />
+</LinearLayout>
