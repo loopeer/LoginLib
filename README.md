@@ -41,7 +41,6 @@ mCountDownView.setCaptchaListener(new LoginLoader.CaptchaListener() {
 });
 ```
 
-
 ### 提交按钮
 
 **设置提交类型**
